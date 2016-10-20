@@ -1,0 +1,20 @@
+{
+  "name": "music-recommendation",
+  "version": "0.0.0",
+  "description": "Music-recommendation",
+  "main": "app.js",
+  "author": {
+    "name": "hongy"
+  },
+  "scripts": {
+    "seed": "node ./tasks/seed.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.10",
+    "node-uuid": "^1.4.7"
+  }
+}
