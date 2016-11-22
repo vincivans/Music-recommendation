@@ -1,4 +1,3 @@
 module.exports = {
-	login: require("./login"),
-	user: require("./user")
+	users: require("./users")
 };

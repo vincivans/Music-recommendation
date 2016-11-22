@@ -50,7 +50,7 @@ let exportMethods = {
 		});
 	},
 
-	authenticateUser(userName, password)=>{
+	authenticateUser(userName, password){
 		if(!userName || typeof(userName) !== "string")
 			return Promise.reject("Please provide a valid userName");
 		if(!password || typeof(password) !== "string")
@@ -65,7 +65,7 @@ let exportMethods = {
 						user.sessionId = uuid.v4();
 
 						return userCollection.updateOne({_id: user._id}, user)
-								.then(()={
+								.then(()=>{
 									return user;
 						});
 

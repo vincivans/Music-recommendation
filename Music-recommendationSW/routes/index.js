@@ -1,4 +1,4 @@
-const peopleRoutes = require("./login");
+const loginRoutes = require("./login");
 
 const path = require('path');
 
