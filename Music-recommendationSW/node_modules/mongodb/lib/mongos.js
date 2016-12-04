@@ -4,7 +4,6 @@ var EventEmitter = require('events').EventEmitter
   , inherits = require('util').inherits
   , f = require('util').format
   , ServerCapabilities = require('./topology_base').ServerCapabilities
-  , MongoCR = require('mongodb-core').MongoCR
   , MongoError = require('mongodb-core').MongoError
   , CMongos = require('mongodb-core').Mongos
   , Cursor = require('./cursor')
@@ -13,7 +12,6 @@ var EventEmitter = require('events').EventEmitter
   , Define = require('./metadata')
   , Server = require('./server')
   , Store = require('./topology_base').Store
-  , shallowClone = require('./utils').shallowClone
   , MAX_JS_INT = require('./utils').MAX_JS_INT
   , translateOptions = require('./utils').translateOptions
   , filterOptions = require('./utils').filterOptions
@@ -232,7 +230,7 @@ Mongos.prototype.connect = function(db, _options, callback) {
   self.s.storeOptions.bufferMaxEntries = db.bufferMaxEntries;
 
   // Error handler
-  var connectErrorHandler = function(event) {
+  var connectErrorHandler = function() {
     return function(err) {
       // Remove all event handlers
       var events = ['timeout', 'error', 'close'];
@@ -261,7 +259,7 @@ Mongos.prototype.connect = function(db, _options, callback) {
   }
 
   // Error handler
-  var reconnectHandler = function(err) {
+  var reconnectHandler = function() {
     self.emit('reconnect');
     self.s.store.execute();
   }
@@ -277,7 +275,7 @@ Mongos.prototype.connect = function(db, _options, callback) {
   var connectHandler = function() {
     // Clear out all the current handlers left over
     ["timeout", "error", "close", 'serverOpening', 'serverDescriptionChanged', 'serverHeartbeatStarted',
-      'serverHeartbeatSucceeded', 'serverHearbeatFailed', 'serverClosed', 'topologyOpening',
+      'serverHeartbeatSucceeded', 'serverHeartbeatFailed', 'serverClosed', 'topologyOpening',
       'topologyClosed', 'topologyDescriptionChanged'].forEach(function(e) {
       self.s.mongos.removeAllListeners(e);
     });
@@ -291,7 +289,7 @@ Mongos.prototype.connect = function(db, _options, callback) {
     self.s.mongos.on('serverDescriptionChanged', relay('serverDescriptionChanged'));
     self.s.mongos.on('serverHeartbeatStarted', relay('serverHeartbeatStarted'));
     self.s.mongos.on('serverHeartbeatSucceeded', relay('serverHeartbeatSucceeded'));
-    self.s.mongos.on('serverHearbeatFailed', relay('serverHearbeatFailed'));
+    self.s.mongos.on('serverHeartbeatFailed', relay('serverHeartbeatFailed'));
     self.s.mongos.on('serverOpening', relay('serverOpening'));
     self.s.mongos.on('serverClosed', relay('serverClosed'));
     self.s.mongos.on('topologyOpening', relay('topologyOpening'));

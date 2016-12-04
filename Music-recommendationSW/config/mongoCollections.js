@@ -1,4 +1,3 @@
-"use strict"
 const dbConnection = require("./mongoConnection");
 
 /* This will allow you to have one reference to each collection per app */

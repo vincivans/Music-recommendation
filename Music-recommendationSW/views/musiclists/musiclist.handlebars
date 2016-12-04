@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-sm-12 col-md-8">
+		<h1>Music lists</h1>
+		{{#each musicList}}
+		<article class="music">
+			<h2><a href="/{{id}}">{{ name }}</a></h2>
+			<p>{{ singer }}</p>
+		</article>
+		{{/each}}
+	</div>
+</div>

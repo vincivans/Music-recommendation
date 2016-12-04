@@ -1,24 +1,36 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
+const bcrypt = require("bcrypt-nodejs");
 const uuid = require("node-uuid");
 
 let exportMethods = {
-	addUser(userName, password){
+	addUser(username, password){
 		
 		//check for valid input
-		if(!userName || typeof(userName) !== "string")
+		if(!username || typeof(username) !== "string")
 			return Promise.reject("Please provide a valid userName");
 		if(!password || typeof(password) !== "string")
 			return Promise.reject("Please provide a valid password");
 
 		return users().then((userCollection)=>{
-			let favorite = [];//a list of user favorite songs
+			let favorite = [],//a list of user favorite songs
+				history = [],//a list of user listened songs
+				dislike = [],//a list of user dislike music
+				likeAlbum = [],//a list of user liked album
+				recommend = [],//recommendation list
+				likeArtist = [];//a list of user liked artist
+
 			let newUser = {
 				_id: uuid.v4(),
-				userName: userName,
-				password: password,
+				username: username,
+				password: bcrypt.hashSync(password),
 				sessionId: uuid.v4(),
-				favoriteSong: favorite
+				favoriteSong: favorite,
+				listenHistory: history,
+				dislikeSong: dislike,
+				favoriteAlbum: likeAlbum,
+				favoriteArtist: likeArtist,
+				recommendation: recommend
 			};
 
 			return userCollection.insertOne(newUser).then(()=>{
@@ -29,26 +41,32 @@ let exportMethods = {
 		});
 	},
 
-	getUserById(userId){
-		if(!userId)
-			return Promise.reject("Please provide a valid userId.");
+	getUserByUserName(username){
+		if(!username)
+			return Promise.reject("Please provide a valid username.");
 
-		return user().then((userCollection)=>{
-				return userCollection.findOne({_id: id}).then((user)=>{
-					if(!user) throw "User not found";
+		return users().then((userCollection)=>{
+				return userCollection.findOne({ username: username}).then((user)=>{
+					console.log(user);
+					if(!user) Promise.reject("User not found");
 					return user;
 				});	
 		});
 	},
 
-	getUserBySession(sessionId){
-		if(!sessionId)
-			return Promise.reject("Please provide a valid sessionId.");
+	getUserById(userId){
+		if(!userId)
+			return Promise.reject("Please provide a valid userId.");
 
 		return users().then((userCollection)=>{
-			return userCollection.findOne({sessionId: sessionId});
+				return userCollection.findOne({_id: id}).then((user)=>{
+					if(!user) tromise.reject("User not found");
+					return user;
+				});	
 		});
 	},
+
+
 
 	authenticateUser(userName, password){
 		if(!userName || typeof(userName) !== "string")

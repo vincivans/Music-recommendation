@@ -4,7 +4,7 @@
   "description": "Music-recommendation",
   "main": "app.js",
   "author": {
-    "name": "hongy"
+    "name": "Wenhao Liao"
   },
   "scripts": {
     "seed": "node ./tasks/seed.js",
@@ -12,9 +12,16 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
-    "mongodb": "^2.2.10",
-    "node-uuid": "^1.4.7"
+    "express-session": "^1.14.2",
+    "mongodb": "^2.2.12",
+    "node-uuid": "^1.4.7",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
   }
 }

@@ -4,20 +4,16 @@ var EventEmitter = require('events').EventEmitter
   , inherits = require('util').inherits
   , f = require('util').format
   , Server = require('./server')
-  , Mongos = require('./mongos')
   , Cursor = require('./cursor')
   , AggregationCursor = require('./aggregation_cursor')
   , CommandCursor = require('./command_cursor')
   , ReadPreference = require('./read_preference')
-  , MongoCR = require('mongodb-core').MongoCR
   , MongoError = require('mongodb-core').MongoError
   , ServerCapabilities = require('./topology_base').ServerCapabilities
   , Store = require('./topology_base').Store
   , Define = require('./metadata')
-  , CServer = require('mongodb-core').Server
   , CReplSet = require('mongodb-core').ReplSet
   , CoreReadPreference = require('mongodb-core').ReadPreference
-  , shallowClone = require('./utils').shallowClone
   , MAX_JS_INT = require('./utils').MAX_JS_INT
   , translateOptions = require('./utils').translateOptions
   , filterOptions = require('./utils').filterOptions
@@ -175,8 +171,6 @@ var ReplSet = function(servers, options) {
 
   // Create the ReplSet
   var replset = new CReplSet(seedlist, clonedOptions);
-  // Server capabilities
-  var sCapabilities = null;
 
   // Listen to reconnect event
   replset.on('reconnect', function() {
@@ -240,7 +234,7 @@ var translateReadPreference = function(options) {
     options.readPreference = new CoreReadPreference(options.readPreference);
   } else if(options.readPreference instanceof ReadPreference) {
     options.readPreference = new CoreReadPreference(options.readPreference.mode
-      , options.readPreference.tags, {maxStalenessMS: options.readPreference.maxStalenessMS});
+      , options.readPreference.tags, {maxStalenessSeconds: options.readPreference.maxStalenessSeconds});
   }
 
   return options;
@@ -270,7 +264,7 @@ ReplSet.prototype.connect = function(db, _options, callback) {
   var connectHandler = function() {
     // Clear out all the current handlers left over
     ["timeout", "error", "close", 'serverOpening', 'serverDescriptionChanged', 'serverHeartbeatStarted',
-      'serverHeartbeatSucceeded', 'serverHearbeatFailed', 'serverClosed', 'topologyOpening',
+      'serverHeartbeatSucceeded', 'serverHeartbeatFailed', 'serverClosed', 'topologyOpening',
       'topologyClosed', 'topologyDescriptionChanged'].forEach(function(e) {
       self.s.replset.removeAllListeners(e);
     });
@@ -315,18 +309,18 @@ ReplSet.prototype.connect = function(db, _options, callback) {
     self.s.replset.on('serverDescriptionChanged', relay('serverDescriptionChanged'));
     self.s.replset.on('serverHeartbeatStarted', relay('serverHeartbeatStarted'));
     self.s.replset.on('serverHeartbeatSucceeded', relay('serverHeartbeatSucceeded'));
-    self.s.replset.on('serverHearbeatFailed', relay('serverHearbeatFailed'));
+    self.s.replset.on('serverHeartbeatFailed', relay('serverHeartbeatFailed'));
     self.s.replset.on('serverOpening', relay('serverOpening'));
     self.s.replset.on('serverClosed', relay('serverClosed'));
     self.s.replset.on('topologyOpening', relay('topologyOpening'));
     self.s.replset.on('topologyClosed', relay('topologyClosed'));
     self.s.replset.on('topologyDescriptionChanged', relay('topologyDescriptionChanged'));
 
-    self.s.replset.on('fullsetup', function(topology) {
+    self.s.replset.on('fullsetup', function() {
       self.emit('fullsetup', null, self);
     });
 
-    self.s.replset.on('all', function(topology) {
+    self.s.replset.on('all', function() {
       self.emit('all', null, self);
     });
 
@@ -342,7 +336,7 @@ ReplSet.prototype.connect = function(db, _options, callback) {
   }
 
   // Error handler
-  var connectErrorHandler = function(event) {
+  var connectErrorHandler = function() {
     return function(err) {
       ['timeout', 'error', 'close'].forEach(function(e) {
         self.s.replset.removeListener(e, connectErrorHandler);
