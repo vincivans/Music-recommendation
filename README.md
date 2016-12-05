@@ -6,33 +6,33 @@ This is a project for our CS546 Web application, pull the request if you need.
 ##Contribution guide
 To contribute to the project first fork the repository.
 
-Then use command line:
+Then to get the project into your local repository, using command line:
 
 	$ git clone https://github.com/vincivans/Music-recommendation
 	
-to get the project into your local repository.
 
-Then use:
+Then to set the new remote using command line:
 
 	$ git remote add origin https://github.com/vincivans/Music-recommendation
 
-to set the new remote
 
-Then use:
+Then to verify the new remote URL, use:
 
 	$ git remote -v
 
-to verify the new remote URL.
+After all the process, you have succeed on track the project.
 
-Using:
+To add files in the local repository and stages them for commit:
 
 	$ git add filename
-to add files in the local repository and stages them for commit.
+
+To commit the tracked changes:
 
 	$ git commit -m "Commit content"
-to commit the tracked changes.
+
+To merge the local files to the original master(to upload your contributions to this project):
 
 	$ git push origin master
-to merge the local files to the original master
+
 
 
