@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const data = require('../data');
-const user = data.users;
+//const data = require('../data');
+//const userData = data.users;
 const passport = require('passport');
 
 ensureAuthenticated = (req, res, next) => {
@@ -11,6 +11,7 @@ ensureAuthenticated = (req, res, next) => {
 		res.redirect('/login');
 }
 
+
 passport.serializeUser(function(user, done) {
 	  done(null, user);
 });
@@ -18,7 +19,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
 	    done(null, user);
 });
-
 
 //get login page(main page)
 router.get("/login",(req, res) => {
@@ -38,9 +38,7 @@ router.get("/", ensureAuthenticated, (req, res, next) => {
 
 //get the user private page
 router.get("/private", ensureAuthenticated, (req, res)=>{
-				let user = req.user;
-				user = JSON.parse(user);
-				res.render("login/single", {"user": user});
+			res.render("users/single", {"user": req.user});
 	});
 
 //handle logout
@@ -54,6 +52,7 @@ router.get("/signout", (req, res)=>{
 router.post('/login', passport.authenticate('local-login', { successRedirect: '/private',
 														   failureRedirect: '/login',
 														   failureFlash: true }));
+
 
 //handle registration post
 router.post('/signup', passport.authenticate('local-signup', { successRedirect: '/private',

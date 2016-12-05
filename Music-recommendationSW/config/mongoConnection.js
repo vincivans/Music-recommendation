@@ -21,5 +21,14 @@ let connectDb = () => {
 
     return _connection;
 };
+/*
+let connectDb = MongoClient.connect(fullMongoUrl).then((db)=>{
+    db.dropDatabase().then((res) =>{
+        db.admin().listDatabases().then(()=>{
+            db.close();
+            console.log("Done");
+        });
+    });
+})*/
 
 module.exports = connectDb;

@@ -11,7 +11,6 @@ let exportMethods = {
 			return Promise.reject("Please provide a valid userName");
 		if(!password || typeof(password) !== "string")
 			return Promise.reject("Please provide a valid password");
-
 		return users().then((userCollection)=>{
 			let favorite = [],//a list of user favorite songs
 				history = [],//a list of user listened songs
@@ -24,7 +23,6 @@ let exportMethods = {
 				_id: uuid.v4(),
 				username: username,
 				password: bcrypt.hashSync(password),
-				sessionId: uuid.v4(),
 				favoriteSong: favorite,
 				listenHistory: history,
 				dislikeSong: dislike,
@@ -33,7 +31,7 @@ let exportMethods = {
 				recommendation: recommend
 			};
 
-			return userCollection.insertOne(newUser).then(()=>{
+			return userCollection.insertOne(newUser).then((newInsertInformation)=>{
 				return newInsertInformation.insertedId;
 			}).then((newId)=>{
 				return this.getUserById(newId);
@@ -41,16 +39,23 @@ let exportMethods = {
 		});
 	},
 
+	getAll(){
+		return users().then((userCollection)=>{
+			return userCollection.find().toArray();
+		})
+	},
+
 	getUserByUserName(username){
 		if(!username)
 			return Promise.reject("Please provide a valid username.");
-
 		return users().then((userCollection)=>{
 				return userCollection.findOne({ username: username}).then((user)=>{
-					console.log(user);
 					if(!user) Promise.reject("User not found");
+					//user is object
 					return user;
-				});	
+				}).catch((err)=>{
+					console.log(err);
+				});
 		});
 	},
 
@@ -59,15 +64,17 @@ let exportMethods = {
 			return Promise.reject("Please provide a valid userId.");
 
 		return users().then((userCollection)=>{
-				return userCollection.findOne({_id: id}).then((user)=>{
-					if(!user) tromise.reject("User not found");
+				return userCollection.findOne({_id: userId}).then((user)=>{
+					if(!user) Promise.reject("User not found");
 					return user;
-				});	
+				}).catch((err)=>{
+					console.log(err);
+				});
 		});
-	},
+	}
 
 
-
+/*
 	authenticateUser(userName, password){
 		if(!userName || typeof(userName) !== "string")
 			return Promise.reject("Please provide a valid userName");
@@ -89,7 +96,7 @@ let exportMethods = {
 
 				});
 		});
-	}
+	}*/
 
 }
 

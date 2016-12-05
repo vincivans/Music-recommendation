@@ -4,7 +4,11 @@
   "description": "Music-recommendation",
   "main": "app.js",
   "author": {
-    "name": "Wenhao Liao"
+    "name": "Wenhao Liao",
+    "name": "Siran Wang",
+    "name": "Hongyi Xie",
+    "name": "Binglin Xie",
+    "name": "Xin Zou"
   },
   "scripts": {
     "seed": "node ./tasks/seed.js",
