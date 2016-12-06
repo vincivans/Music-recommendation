@@ -20,5 +20,8 @@ let getCollectionFn = (collection) => {
 module.exports = {
     users: getCollectionFn("users"),
     music: getCollectionFn("music"),
+    artists: getCollectionFn("artists"),
+    albums: getCollectionFn("albums"),
+    genre: getCollectionFn("genre")
 };
 

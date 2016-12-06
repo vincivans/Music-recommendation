@@ -73,31 +73,6 @@ let exportMethods = {
 		});
 	}
 
-
-/*
-	authenticateUser(userName, password){
-		if(!userName || typeof(userName) !== "string")
-			return Promise.reject("Please provide a valid userName");
-		if(!password || typeof(password) !== "string")
-			return Promise.reject("Please provide a valid password");
-
-
-		return users().then((userCollection)=>{
-				return userCollection.findOne({userName: userName, password: password})
-						.then((user)=>{
-						if(!user) throw "User not found.";
-
-						user.sessionId = uuid.v4();
-
-						return userCollection.updateOne({_id: user._id}, user)
-								.then(()=>{
-									return user;
-						});
-
-				});
-		});
-	}*/
-
 }
 
 module.exports = exportMethods;
