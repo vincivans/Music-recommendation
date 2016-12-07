@@ -1,0 +1,43 @@
+<% include partials/header %>
+<div class="ui main container segment large">
+    <div class="ui items">
+        <div class=" item">
+            <a class="ui small image">
+              <img class="ui img rounded" src="<%=song.cover %>">
+            </a>
+            <div class="content">
+                <a class="header" href="songs/<%= song._id %>"><%= song.title %></a>
+                  <span><%= song.created.toDateString() %></span>
+                <div class="description">
+                    <p><%= song.description %></p>
+                </div>
+                
+                <a class="ui primary button" href="/songs/<%= song._id %>/edit">EDIT</a>
+                <form id="delete" action="/songs/<%= song._id %>?_method=DELETE" method="POST">
+                    <button class="ui negative button">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    <!--<div class="ui top attached">-->
+    <!--    <div class="item">-->
+    <!--        <img class="ui left rounded image" src="<%=song.cover %>"></img>-->
+    <!--        <div class="content">-->
+    <!--            <span><%= song.created.toDateString() %></span>-->
+    <!--            <div class="description">-->
+    <!--                <p><%= song.description %></p>-->
+    <!--            </div>-->
+    <!--            <div class="comment">-->
+    <!--                 <p><%= song.comment %></p>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--</div>-->
+   
+    
+</div>
+<% include partials/footer %>

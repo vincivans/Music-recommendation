@@ -1,0 +1,83 @@
+
+.ui.main.container{
+    box-sizing: border-box;
+    margin-top: 5em;
+}
+
+#head-icon{
+    font-size: 2em;
+}
+
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+video{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-height:  100%;
+    width: auto;
+    height: auto;
+    z-index: -100
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(38, 50, 56, 0.1);
+}
+
+.login-wrapper{
+    /*width: 30%;*/
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-wrapper .ui.header{
+    font-size: 1.7em;
+}
+.ui.input, login-margin {
+    width: 100%;
+    margin: .5em 0 !important;
+}
+
+.ui.button{
+    margin: .5em 0
+}
+
+.ui.grid{
+    margin-top: 5.0em;
+}
+
+#delete {
+    display: inline
+}
+
+
+.ui.cards > .card > .image > img, .ui.card > .image > a {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+}
+.ui.cards > .card > .image > img, .ui.card > .image > a >img{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+}

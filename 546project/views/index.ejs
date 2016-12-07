@@ -1,0 +1,63 @@
+<% include partials/header %>
+    <div class="ui stackable three column very relaxed grid container" style="position:relative">
+        <% songs.forEach(function(song){ %>
+            <div class="column">
+
+              <div class="item">
+                <!--<div class="ui segment">-->
+                    <div class="ui card">
+                      <div class="image">
+                        <a href="/songs/<%= song._id %>">
+                          <img src= "<%= song["cover"] %>"/>
+                        </a>
+                        
+                      </div>
+                      <div class="content">
+                        <a class="header" href="/songs/<%= song._id %>"><%= song["title"] %></a>
+                        <div class="meta">
+                          <span class="date"><%= song.created.toDateString() %></span>
+                        </div>
+                        <div class="description">
+                          <p><%= song["description"].substring(0, 50) %>...</p>
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <div class="ui small basic icon buttons">
+                          <a class="ui button center" href="/songs/<%= song._id %>"><i class="unhide icon"></i></a>
+                          <a class="ui button" href="<%= song.source %>"><i class="video play icon"></i></a>
+                          <button class="ui button"><i class="thumbs outline up icon"></i></button>
+                          <button class="ui button"><i class="thumbs outline down icon"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <!--<div class="rounded image">-->
+                    <!--    <img class="ui fluid image" src= "<%= song["cover"] %>" ></img>-->
+                    <!--</div>-->
+                    <!--<div class="content">-->
+                    <!--    <a class="header" href="/songs/<%= song._id %>"><%= song["title"] %></a>-->
+                    <!--    <div class="meta">-->
+                    <!--        <span> <%= song.created.toDateString() %></span>-->
+                    <!--        <span><i class="icon user"></i>歌手:<%= song["singer"] %></span>-->
+                    <!--    </div>-->
+                    <!--    <div class="description">-->
+                    <!--        <p><%= song["description"].substring(0, 100) %>...</p>-->
+                    <!--    </div>-->
+                    <!--    <div class="extra">-->
+                    <!--        <a class="btn btn-primary" href="<%= song["source"] %>">Listen</a></p>-->
+                    <!--        <a class="ui floated basic violet button" href="/songs/<%= song._id %>">-->
+                    <!--            Read More-->
+                    <!--                <i class="right chevron icon"></i>-->
+                    <!--        </a> -->
+                    <!--    </div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                </div>
+
+            </div>
+        <% }); %>
+    </div>
+<% include partials/footer %>
