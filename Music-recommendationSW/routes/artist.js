@@ -3,6 +3,18 @@ const router = express.Router();
 const data = require('../data');
 const artistData = data.artists;
 const request  =require('request');
+const SpotifyWebApi = require('spotify-web-api-node');
+
+
+// credentials are optional 
+var spotifyApi = new SpotifyWebApi({
+  clientId : 'fcecfc72172e4cd267473117a17cbd4d',
+  clientSecret : 'a6338157c9bb5ac9c71924cb2940e1a7',
+  redirectUri : 'http://www.example.com/callback'
+});
+
+
+
 
 router.get("/", (req, res) => {//limit the artistList.length = 10
     artistData.getSeveralArtists(30).then((artistList) => {
@@ -56,15 +68,25 @@ each artist example:
 
 
 router.get("/:id", (req, res) =>{
-	request('https://api.spotify.com/v1/artists/${req.params.id}', function(error, response, body) {
+    let url = 'https://api.spotify.com/v1/artists/'+req.params.id;
+    spotifyApi.getArtist(req.params.id)
+      .then(function(data) {
+        //console.log('Artist information', data.body);
+        body = data.body
+        res.render('artist/single', { art: body });//art details as above
+      }, function(err) {
+        console.error(err);
+      });
+
+    /*
+	request(url, function(error, response, body) {
             if(error) console.log(error);
-            console.log(body);
             if (!error && response.statusCode == 200) {
             	//body is a string
                 body = JSON.parse(body);
                 res.render('artist/single', { art: body });//art details as above
             }
-        })
+        })*/
 });
 
 module.exports = router;

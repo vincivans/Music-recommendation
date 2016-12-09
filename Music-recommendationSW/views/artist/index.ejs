@@ -2,6 +2,6 @@
   <h1>Artists</h1>
   <% artists.forEach(function(art){ %>  <!-- art is each singer in the artists array-->
       <h2><a href="/artist/<%= art["id"] %>"><%= art["name"] %></a></h2>
-      <p><%= art["images"][1]["url"] %></p> 
+      <p><%= art["images"][1]["url"] %></p>
   <% }); %>
 </section>

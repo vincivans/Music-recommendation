@@ -5,8 +5,9 @@
   <% if((art["genres"]).length) { %>
     <h3>Genres</h3>
     <ul>
-      <% (art["genre"]).forEach(function(g){ %>
-        <li><%= this %></li>
+
+      <% (art["genres"]).forEach(function(g){ %>
+        <li><%= g %></li>
       <% }); %>
     </ul>
  <% } %>

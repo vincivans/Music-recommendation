@@ -21,7 +21,6 @@ const request = require('request');
 //INDEX ROUTE
 router.get('/', (req, res) => {//limit the trackList.length = 10
     trackData.getSeveralTracks(10).then((trackList) => {
-        console.log(trackList[0]);
         res.render('index', { tracks: trackList })
     }).catch((err)=>{
         console.log(err);
@@ -177,7 +176,8 @@ router.get('/songs', (req, res) => {//limit the trackList.length = 10
 //Binglin Xie SINGLE TRACK ROUTE   use: http://localhost:3000/track/songs/:id
 router.get("/songs/:id", (req, res) => {
         //direct get the track information from the Internet
-        request('https://api.spotify.com/v1/tracks/${req.params.id}', function(error, response, body) {
+        let url = 'https://api.spotify.com/v1/tracks/'+ req.params.id;
+        request(url, function(error, response, body) {
             if (!error && response.statusCode == 200) {
         
                 body = JSON.parse(body);

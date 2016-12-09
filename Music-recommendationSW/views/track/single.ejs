@@ -3,7 +3,7 @@
   
  <audio controls>
   
-  <source src=<%= album["preview_url"] %> type="audio/mpeg">
+  <source src=<%= track["preview_url"] %> type="audio/mpeg">
 
 </audio>
   <img src=<%= track["album"]["images"][1]["url"] %> >
@@ -11,7 +11,7 @@
     <h3>Artists</h3>
     <ul>
       <% track["artists"].forEach(function(singer){ %>
-        <li><a href="/artists/<%=this["id"]%>"><%= this["name"] %></a></li>
+        <li><a href="/artist/<%=singer["id"]%>"><%= singer["name"] %></a></li>
       <% }); %>
     </ul>
   <% } %>
