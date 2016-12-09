@@ -1,0 +1,8 @@
+<section>
+  <h1>Tracks</h1>
+  <% tracks.forEach(function(tra){ %>   
+    <article>
+      <h2><a href="/tracks/<%= tra["id"] %>"><%= tra["name"] %></a></h2>
+    </article>
+   <% }); %>
+</section>

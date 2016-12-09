@@ -1,0 +1,13 @@
+<article>
+  <h1><%= art["name"] %></h1>
+  <p>popularity:<a><%= art["popularity"] %></a></p>
+  <img src=<%= art["images"][2]["url"] %> >
+  <% if((art["genres"]).length) { %>
+    <h3>Genres</h3>
+    <ul>
+      <% (art["genre"]).forEach(function(g){ %>
+        <li><%= this %></li>
+      <% }); %>
+    </ul>
+ <% } %>
+</article>

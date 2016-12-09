@@ -1,13 +1,22 @@
 const loginRoutes = require("./login");
-const passport = require('passport');
+const albumRoutes = require("./album");
+const artistRoutes = require("./artist");
+const trackRoutes   = require("./track");//originally song track
+const passport    = require('passport');
 
 const constructorMethod = (app) =>{
 
 	//Route for logged in users
 	app.use("/", loginRoutes);
 
-	//Welcome page?
-	//app.use("/main");
+	//Route for each album
+	app.use("/album", albumRoutes);
+
+	//Route for each artist
+	app.use("/artist", artistRoutes);
+
+	//Route for each track(song)
+	app.use("/track", trackRoutes);
 
 
 	app.use("*", (req, res)=>{

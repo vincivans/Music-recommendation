@@ -1,0 +1,21 @@
+<article>
+  <h1><%= alb["name"] %></h1>             <!--to get the object.member use Obj["member"]-->
+  <img src=<%= alb["images"][1]["url"] %> >
+  <% if((alb["artists"]).length) { %>
+    <h3>Artists</h3>
+    <ul>
+       <% (alb["artists"]).forEach(function(singer){ %>
+        <li><a href="/artist/<%= singer["id"] %>"><%= singer["name"] %></a></li>
+      <% }); %>
+    </ul>
+  <%}%>
+  <% if ((alb["tracks"]["items"]).length) { %>
+    <h3>PlayList</h3>
+    <ul>
+      <% alb["tracks"]["items"].forEach(function(track){ %>
+        <li><a href="/track/songs/<%= track["id"] %>"><%= track["name"] %></a></li>
+      <% }); %>
+    </ul>
+  <% } %>
+  
+</article>

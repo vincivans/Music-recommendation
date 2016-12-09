@@ -1,53 +1,96 @@
-body {
-    background: #FEFEFE;
-    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-    font-size: 15pt;
+
+.ui.main.container{
+    box-sizing: border-box;
+    margin-top: 5em;
 }
 
-main {
-    max-width: 75%;
-    margin: auto;
+#main-wrapper{
+    margin-top: 5.0em;
+}
+#head-icon{
+    font-size: 2em;
 }
 
-header {
-    border-bottom: 1px solid #AFAFAF;
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #333;
-    margin-bottom: 5px;
+video{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width:  100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100
 }
 
-h1 {
-    font-size: 2rem;
+.overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: rgba(38, 50, 56, 0.1);
 }
 
-h2 {
-    font-size: 1.75rem;
+.login-wrapper{
+    /*width: 30%;*/
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
-h3 {
-    font-size: 1.5rem;
+.login-wrapper .ui.header{
+    font-size: 1.7em;
+}
+.ui.input, login-margin {
+    width: 100%;
+    margin: .5em 0 !important;
 }
 
-h4 {
-    font-size: 1.25rem;
+.ui.button{
+    margin: .5em 0
 }
 
-h5 {
-    font-size: 1.15rem;
+
+#delete {
+    display: inline
 }
 
-h6 {
-    font-size: 1.05rem;
+
+.ui.cards > .card > .image > img, .ui.card > .image > a {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
 }
 
-p {
-    font-size: 1rem;
-    line-height: 2;
+.ui.cards > .card > .image > img, .ui.card > .image > a >img{
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
 }
 
-.post {
-    width: 75%;
-    border-bottom: 1px dashed #333;
+#signup{
+    margin-top: 1em;
+}
+#signup .colum{
+    width: 50%;
+}
+
+#signup .colum button, #signup .colum a{
+    width: 100%;
 }

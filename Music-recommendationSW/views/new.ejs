@@ -1,0 +1,36 @@
+<% include partials/header %>
+<div class="ui main container segment">
+    <div class="ui huge header">Add Song</div>
+    <form class="ui form" action="/songs" method='POST'>
+        <div class="field">
+            <lable for="song[title]">Titile</lable>
+            <input type="text" name="song[title]" placeholder="Title"></input>
+        </div>
+        <div class="field">
+            <lable for="song[singer]">Singer</lable>
+            <input type="text" name="song[singer]" placeholder="Singer"></input>
+        </div>
+        <div class="field">
+            <lable for="song[cover]">Cover</lable>
+            <input type="text" name="song[cover]" placeholder="Cover"></input>
+        </div>
+        <div class="field">
+            <lable for="song[source]">Source</lable>
+            <input type="text" name="song[source]" placeholder="Source site"></input>
+        </div>
+        <div class="field">
+            <lable for="song[genre]">Genre</lable>
+            <input type="text" name="song[genre]" placeholder="genre"></input>
+        </div>
+        <div class="field">
+            <lable for="song[description]">Desciption</lable>
+            <input type="text" name="song[description]" placeholder="May be a short description here"></input>
+        </div>
+        <div class="field">
+            <lable for="song[comment]">Comment</lable>
+            <textarea name="song[comment]" placeholder="Something to say?"></textarea>
+        </div>
+        <input class="ui inverted violet button" type="submit">
+    </form>
+</div>
+<% include partials/footer %>

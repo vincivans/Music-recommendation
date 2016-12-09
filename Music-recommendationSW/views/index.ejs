@@ -1,0 +1,38 @@
+<% include partials/header %>
+    <div class="ui stackable three column very relaxed grid container" style="position:relative">
+        <% tracks.forEach(function(track){ %>
+            <div class="column">
+
+              <div class="item">
+                <!--<div class="ui segment">-->
+                    <div class="ui card">
+                      <div class="image">
+                        <a href="/track/<%= track["id"]%>">
+                          <img src= "<%= track["cover"] %>"/>
+                        </a>
+                        
+                      </div>
+                      <div class="content">
+                        <a class="header" ref="/track/<%= track["id"]%>"><%= track["name"] %></a>
+                        <div class="meta">
+                          
+                        </div>
+                        <div class="description">
+                          
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <div class="ui small basic icon buttons">
+                          <a class="ui button center" href="/track/<%= track["id"] %>"><i class="unhide icon"></i></a>
+                          
+                          <button class="ui button"><i class="thumbs outline up icon"></i></button>
+                          <button class="ui button"><i class="thumbs outline down icon"></i></button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        <% }); %>
+    </div>
+<% include partials/footer %>

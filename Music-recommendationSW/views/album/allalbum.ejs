@@ -1,0 +1,8 @@
+
+<section>
+  <h1>Albums</h1>
+  <% albums.forEach(function(alb){ %>  
+      <h2><a href="/album/<%= alb["id"] %>"><%= alb["name"] %></a></h2>
+      <img src=<%= alb["images"][0]["url"] %> >
+  <% }); %>
+</section>

@@ -1,13 +1,12 @@
 const userData = require("./users");
-const musicData = require("./music");
+const trackData = require("./tracks");
 const artistData = require("./artists");
 const albumData = require("./albums");
-const genreData = require("./genre");
+
 
 module.exports = {
 	users: userData,
-	music: musicData,
+	tracks: trackData,
 	artists: artistData,
-	albums: albumData,
-	genre: genreData
+	albums: albumData
 };

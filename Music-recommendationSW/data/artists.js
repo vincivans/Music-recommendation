@@ -1,61 +1,58 @@
 const mongoCollections = require("../config/mongoCollections");
-const uuid = require("node-uuid")
+//const recipes = mongoCollections.recipes;
 const artists = mongoCollections.artists;
+const uuid = require('node-uuid');
 
-let exportMethods = {
-		addArtist(name, pic){
-		
-		//check for valid input
-		if(!name || typeof(name) !== "string")
-			return Promise.reject("Please provide a valid artist name!");
+let exportedMethods = {
+	getArtistById(id) {
+        return artists().then((artistCollection) => {
+        	console.log("hahhaID");
+            return artistCollection.findOne({ id: id }).then((artist) => {
+                if (!artist) throw "Artist not found";
+                
+                return artist;
+            });
+        });
+    },
+    getArtistByInsertId(id) {
+        return artists().then((artistCollection) => {
+            console.log("hahhaID");
+            return artistCollection.findOne({ _id: id }).then((artist) => {
+                if (!artist) throw "Artist not found";
+                
+                return artist;
+            });
+        });
+    },
+    getSeveralArtists(num) {
+    	 return artists().then((artistCollection) => {
+            return artistCollection.find({}).limit(num).toArray();
+        });
 
-		return artists().then((artistCollection)=>{
-			let singMusic = [],//a list of artist's songs
-				pubAlbum = [];//a list of artist's albums
+    },
+    getAllArtists() {
+    	 return artists().then((artistCollection) => {
+            return artistCollection.find({}).toArray();
+        });
 
-			let newArtist = {
-				_id: uuid.v4(),
-				name: name,
-				avatar: pic,//artist avatar
-				music: singMusic,
-				album: pubAlbum
-			};
+    },
+	addArtist(data) {
+        return artists().then((artistCollection) => {
+            console.log("hahha");
 
-			return artistCollection.insertOne(newArtist).then((newInsertInformation)=>{
-				return newInsertInformation.insertedId;
-			}).then((newId)=>{
-				return this.getArtistById(newId);
-			});
-		});
-	},
+            return artistCollection.insertOne(data).then((newInsertInformation) => {
+                return newInsertInformation.insertedId;
+            }).then((newId) => {
+                return this.getAlbumByInsertId(newId);
+            });
+        });
+    },
+    addAllArtist(arr) {
+    	return artists().then((artistCollection) => {
+            console.log("all");
+            return artistCollection.insertMany(arr);
+        });
+    }
 
-	getArtistByName(artistName){
-		if(!artistName)
-			return Promise.reject("Please provide a valid aritst name!");
-
-		return artists().then((artistCollection)=>{
-				return artistCollection.findOne({name: artistName}).then((artist)=>{
-					if(!artist) Promise.reject("Artist not found");
-					return artist;
-				}).catch((err)=>{
-					console.log(err);
-				});
-		});
-	},
-
-	getArtistById(artistId){
-		if(!artistId)
-			return Promise.reject("Please provide a valid aritstId.");
-
-		return artists().then((artistCollection)=>{
-				return artistCollection.findOne({_id: artistId}).then((artist)=>{
-					if(!artist) Promise.reject("Artist not found");
-					return artist;
-				}).catch((err)=>{
-					console.log(err);
-				});
-		});
-	}
 }
-
-module.exports = exportMethods;
+module.exports = exportedMethods;

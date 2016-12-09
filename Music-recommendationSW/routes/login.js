@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-//const data = require('../data');
-//const userData = data.users;
+const data = require('../data');
+const userData = data.users;
 const passport = require('passport');
 
 ensureAuthenticated = (req, res, next) => {
@@ -22,23 +22,23 @@ passport.deserializeUser(function(user, done) {
 
 //get login page(main page)
 router.get("/login",(req, res) => {
-		res.render("login/mainpage", { message: req.flash('error') });
+		res.render('login', { message: req.flash('error') });
 	});
 
 
 //get signup page
 router.get("/signup",(req, res) => {
-		res.render("login/register", { message: req.flash('error') });
+		res.render("register", { message: req.flash('error') });
 	});
 
 //get the logined user private page
 router.get("/", ensureAuthenticated, (req, res, next) => {
-		res.redirect('/private');
+		res.redirect('/songs');
 });
 
 //get the user private page
 router.get("/private", ensureAuthenticated, (req, res)=>{
-			res.render("users/single", {"user": req.user});
+			res.render("show", {"user": req.user});
 	});
 
 //handle logout
@@ -49,48 +49,15 @@ router.get("/signout", (req, res)=>{
 
 
 //handle login post
-router.post('/login', passport.authenticate('local-login', { successRedirect: '/private',
+router.post('/login', passport.authenticate('local-login', { successRedirect: '/songs',
 														   failureRedirect: '/login',
 														   failureFlash: true }));
 
 
 //handle registration post
-router.post('/signup', passport.authenticate('local-signup', { successRedirect: '/private',
+router.post('/signup', passport.authenticate('local-signup', { successRedirect: '/songs',
 														   failureRedirect: '/signup',
 														   failureFlash: true }));
 
-
-/*
-router.get("/register", (req, res) =>{
-		res.render("users/register");
-});
-
-router.get("/:id", (req, res)=>{
-	user.getUserById(req.params._id).then((userData)=>{
-		res.render("user/single", {singleuser: userData});
-	}).catch((error)=>{
-		res.status(404).json({message:"User not found"});
-	});
-});
-
-
-
-router.get("/", (req, res)=>{
-	user.getAllUsers().then((userList)=>{
-		let u = [];
-		userList.forEach((ele, index)=>{
-			u.push(ele["userName"]);
-		});
-		res.json(u);
-	}, ()=>{
-		//something wrong with the server
-		res.status(500).send();
-	});
-});
-
-router.post("/", (req, res)=>{
-	//Not implemented
-	res.status(501).send();
-});*/
 
 module.exports = router;

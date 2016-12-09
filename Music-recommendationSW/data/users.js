@@ -30,7 +30,7 @@ let exportMethods = {
 				favoriteArtist: likeArtist,
 				recommendation: recommend
 			};
-
+			console.log(typeof newUser.password);
 			return userCollection.insertOne(newUser).then((newInsertInformation)=>{
 				return newInsertInformation.insertedId;
 			}).then((newId)=>{
@@ -71,6 +71,12 @@ let exportMethods = {
 					console.log(err);
 				});
 		});
+	},
+
+	getAll(){
+		return users().then((userlist)=>{
+			return userlist.find().toArray();
+		})
 	}
 
 }
