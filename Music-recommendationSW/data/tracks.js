@@ -5,7 +5,6 @@ const tracks = mongoCollections.tracks;
 let exportedMethods = {
     getTrackById(id) {
         return tracks().then((trackCollection) => {
-            console.log("hahhaID");
             return trackCollection.findOne({
                 id: id
             }).then((track) => {
@@ -40,7 +39,6 @@ let exportedMethods = {
     },
     addTrack(data) {
         return tracks().then((trackCollection) => {
-            console.log("hahha");
 
             return trackCollection.insertOne(data).then((newInsertInformation) => {
                 return newInsertInformation.insertedId;

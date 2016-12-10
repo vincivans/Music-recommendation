@@ -1,19 +1,6 @@
-<article>
-  <h1><%= track["name"] %></h1>
-  
- <audio controls>
-  
+<audio controls>
   <source src=<%= track["preview_url"] %> type="audio/mpeg">
-
 </audio>
-  <img src=<%= track["album"]["images"][1]["url"] %> >
-  <% if ((track["artists"]).length) { %>
-    <h3>Artists</h3>
-    <ul>
-      <% track["artists"].forEach(function(singer){ %>
-        <li><a href="/artist/<%=singer["id"]%>"><%= singer["name"] %></a></li>
-      <% }); %>
-    </ul>
-  <% } %>
-</article>
+  
+
 

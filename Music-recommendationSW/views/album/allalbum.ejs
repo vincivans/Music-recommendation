@@ -1,8 +1,22 @@
+<% include ../partials/header %>
 
-<section>
-  <h1>Albums</h1>
-  <% albums.forEach(function(alb){ %>  
-      <h2><a href="/album/<%= alb["id"] %>"><%= alb["name"] %></a></h2>
-      <img src=<%= alb["images"][0]["url"] %> >
-  <% }); %>
-</section>
+<div class="ui container">
+  <div class="ui equal width grid">
+    <% albums.forEach(function(alb){ %>  
+      <div class="sixteen wide mobile eight wide tablet four wide computer column ">
+        <div class="ui image">
+          <div class="ui blurring dimmer">
+            <div class="content">
+              <div class="center">
+                <p class="ui text"><%= alb["name"] %></p>
+                <a href="/album/<%= alb["id"] %>" class="ui yellow basic button">View More</a>
+              </div>
+            </div>
+          </div>
+          <img class="ui image" src="<%= alb["images"][0]["url"] %>">
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+<% include ../partials/footer %>

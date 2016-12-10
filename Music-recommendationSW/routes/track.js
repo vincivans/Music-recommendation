@@ -26,14 +26,19 @@ const request = require('request');
 //INDEX ROUTE     //get the top 10 music, rolling album, 
 router.get('/', (req, res) => {
     trackData.getTop10Tracks().then((trackList) => {
-        let rollAlbum = [];
-        let rollArtist = [];
-        let topTrack = trackList;
-
+        let rAlbum = [];
+        let rArtist = [];
+        let topTrack = trackList;//note here may result in collision with the search's "traclist"
+                                 //if any mistakes, rename the parameter
         return Promise.all([trackList, trackList.forEach((ele)=>{
-                            rollAlbum.push(ele.album);
-                            rollArtist.push(ele.artists)})]).then((value)=>{
-        res.render('index', { tracks: topTrack, rartist: rollArtist, ralbum: rollAlbum});
+                            rAlbum.push(ele.album);
+                            rArtist.push(ele.artists)})]).then((value)=>{
+        res.render('index', { tracks: topTrack, rollartist: rArtist, rollalbum: rAlbum});
+                              /*tracks is an array of that contains 10 songs
+                                rollArtist is generated through toptrack, is a two dimentional
+                                array
+                                ralbum is an array of albums
+                              */
     }).catch((err)=>{
         console.log(err);
     })
@@ -179,7 +184,7 @@ router.post('/search',function(req,res){
     //After clicking submit the data in the form will be packaged and send in req.body;
     var keyWord = req.sanitize(req.body.keyword);
     //console.log(Song);
-    let url = 'https://api.spotify.com/v1/search?q='+keyWord+'&type=track,artist,album&limit=1';
+    let url = 'https://api.spotify.com/v1/search?q='+keyWord+'&type=track,artist,album&limit=2';
         request(url, function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 body = JSON.parse(body);

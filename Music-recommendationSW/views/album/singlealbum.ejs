@@ -1,21 +1,49 @@
-<article>
-  <h1><%= alb["name"] %></h1>             <!--to get the object.member use Obj["member"]-->
-  <img src=<%= alb["images"][1]["url"] %> >
-  <% if((alb["artists"]).length) { %>
-    <h3>Artists</h3>
-    <ul>
-       <% (alb["artists"]).forEach(function(singer){ %>
-        <li><a href="/artist/<%= singer["id"] %>"><%= singer["name"] %></a></li>
-      <% }); %>
-    </ul>
-  <%}%>
-  <% if ((alb["tracks"]["items"]).length) { %>
-    <h3>PlayList</h3>
-    <ul>
-      <% alb["tracks"]["items"].forEach(function(track){ %>
-        <li><a href="/track/songs/<%= track["id"] %>"><%= track["name"] %></a></li>
-      <% }); %>
-    </ul>
-  <% } %>
-  
-</article>
+<% include ../partials/header %>
+<div class="ui container seg-wrapper">
+  <div class="ui stackable grid single-album-info" style="margin-top:3em">
+      <div class="four wide column">
+        <div class="ui fluid grid">
+          <div class="column">
+              <div class="row">
+                <img class="ui fluid circular image" id="signle-album-rota" src="<%= album["images"][1]["url"] %>" >
+              </div>
+              <div class="center aligned row">
+                <% if((album["artists"]).length) { %>
+                  <h3 class="ui header inverted">Artists</h3>
+                    <% (album["artists"]).forEach(function(singer){ %>
+                      <h5><a class="ui header yellow" href="/artist/<%= singer["id"] %>"><%= singer["name"] %></a></h4> 
+                    <% }); %>
+                  </div>
+                <%}%>
+          </div>
+        </div>
+      </div>
+      <div class="twelve wide column">
+        <div class="grid">
+          <div class="column">
+            <h3 class="ui top attached header inverted"><%= album['name']%></h3>
+            <div class="ui inverted  attached segment">
+              <div class="ui inverted relaxed divided list">
+                <% if ((album["tracks"]["items"]).length) { %>
+                  <% album["tracks"]["items"].forEach(function(track){ %> 
+                    <div class="item">
+                      <div class="content">
+                        <div class="header left floated"><%= track["name"] %></div> <a href="#"><i data-id="<%= track["id"] %>" class="right floated icon play"></i></a>
+                      </div>
+                    </div>
+                  <% }); %>
+                <% } %>
+              </div>
+            
+            
+            
+            </div>
+            
+          </div>
+        </div>
+      </div>
+     
+   
+  </div>
+</div>
+<% include ../partials/footer %>

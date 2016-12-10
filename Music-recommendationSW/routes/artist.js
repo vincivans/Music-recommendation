@@ -76,15 +76,28 @@ each artist example:
 
 router.get("/:id", (req, res) =>{//need to login
     let url = 'https://api.spotify.com/v1/artists/'+req.params.id;
-    let url2 = 'https://api.spotify.com/v1/artists/'+req.params.id+'/related-artists';
-	request(url, function(error, response, body) {
-            if(error) console.log(error);
-            if (!error && response.statusCode == 200) {
-            	//body is a string
-                body = JSON.parse(body);
-                res.render('artist/single', { art: body });//art details as above
-            }
-        })
+    let relate = [];
+    spotifyApi.getArtistRelatedArtists(req.params.id)
+             .then((data)=>{
+                            data.body.artists.forEach((ele)=>{
+                                relate.push(ele);
+                            });
+                            return relate;
+                        }, (err)=>{
+                            done(err);
+                        })
+                        .then((relate)=>{
+                            request(url, function(error, response, body) {
+                                if(error) res.status(404).json({error});
+                                if (!error && response.statusCode == 200) {
+                                    //body is a string
+                                    body = JSON.parse(body);
+                                    console.log(relate.length);
+                                    res.render('artist/single', { artist: body, relateartist : relate });//art details as above
+                                }
+                            });
+                        })
+                        
 });
 
 module.exports = router;

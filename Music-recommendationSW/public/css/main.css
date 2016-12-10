@@ -1,4 +1,67 @@
+body{
+    background: black;
+    font-family: 'Slabo 27px', serif;
+}
 
+
+/* ============================== */
+/* for header */
+.pointing.meanu{
+    z-index: 100;
+}
+#head-icon{
+    font-size: 2em;
+}
+a.ui.inverted.button {
+    margin-left: 0.5em !important;
+}
+
+a.active.teal.item{
+    margin-right: 1em;
+}
+/* header end */
+/* ============================== */
+
+
+/*  slider */
+.slider-holder{
+    position:relative;
+    height: 600px;
+    overflow: hidden;
+}
+
+.slider-holder ul .slide{
+    position:absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    background-image: url("https://i.scdn.co/image/0bd0f3a2fdf032314a1a5745fae4c902bf72aa66");
+    height: 600px;
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+/* slider end */
+
+/* ============================== */
+/* for main content */
+.top-gutter{
+    margin-top: 65px;
+}
+
+.bg{
+    background-image: url('../source/bg.jpg');
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 100%;
+    height: 100%;
+}
 .ui.main.container{
     box-sizing: border-box;
     margin-top: 5em;
@@ -7,10 +70,11 @@
 #main-wrapper{
     margin-top: 5.0em;
 }
-#head-icon{
-    font-size: 2em;
-}
+/* main content end */
+/* ============================== */
 
+/* ============================== */
+/* login & sign up Pages */
 .fullscreen-bg {
     position: fixed;
     top: 0;
@@ -21,7 +85,7 @@
     z-index: 1;
 }
 
-video{
+video.fillWidth{
     position: absolute;
     top: 50%;
     left: 50%;
@@ -43,6 +107,8 @@ video{
     background-color: rgba(38, 50, 56, 0.1);
 }
 
+    /* ================== */
+    /* for login-board */
 .login-wrapper{
     /*width: 30%;*/
     width: 300px;
@@ -55,6 +121,7 @@ video{
 .login-wrapper .ui.header{
     font-size: 1.7em;
 }
+
 .ui.input, login-margin {
     width: 100%;
     margin: .5em 0 !important;
@@ -64,24 +131,8 @@ video{
     margin: .5em 0
 }
 
-
 #delete {
     display: inline
-}
-
-
-.ui.cards > .card > .image > img, .ui.card > .image > a {
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: inherit;
-}
-
-.ui.cards > .card > .image > img, .ui.card > .image > a >img{
-    display: block;
-    width: 100%;
-    height: auto;
-    border-radius: inherit;
 }
 
 #signup{
@@ -94,3 +145,73 @@ video{
 #signup .colum button, #signup .colum a{
     width: 100%;
 }
+    /* login-board  end*/
+     /* ================== */
+
+/* login & sign up Pages End */
+/* ============================== */
+
+
+/* ============================== */
+/* fluid card show -> for main page such as album&artist */
+figure{ /* This is for making cover image responsive and keep a squre shape. */ 
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding-bottom: 100%; /* 关键就在这里 */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.ui.blurring.dimmer{
+    z-index: 2;
+}
+
+
+
+
+
+/* ============================== */
+
+/* ============================== */
+/* single album page */
+.seg-wrapper{
+    position: relative;
+}
+.single-album-info{
+    /*background-image: url('../source/single-album-bg.png') !important;*/
+    background-position: center;
+    background-size: cover; 
+}
+.pad{
+    padding-top: 10% !important;
+}
+
+audio{
+    float: right;
+}
+.ui.medium.circular.image{
+    transform: rotate(0deg);
+}
+.center.aligned.row{
+    margin-top: 20%;
+    text-align: center;
+}
+.ui.inverted.attached.header{
+    background:rgba(239, 38, 50, 0.56);
+}
+
+.ui.inverted.segment, .ui.primary.inverted.segment{
+    background:rgba(0, 0, 0, 0.7) !important;
+}
+
+.ui.inverted.attached.segment{
+    border-color: transparent;
+}
+
+/* single album end */
+/* ============================== */

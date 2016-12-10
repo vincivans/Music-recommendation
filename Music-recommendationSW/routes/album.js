@@ -147,7 +147,7 @@ each album example:
 //must login to get this route.
 router.get("/:id", (req, res) => {//id is the spotify api id 
     albumData.getAlbumById(req.params.id).then((album) => {
-        res.render('album/singlealbum', { alb: album });     //details as above
+        res.render('album/singlealbum', { album: album });     //details as above
 
         // request(`https://api.spotify.com/v1/albums/${album.id}`, function(error, response, body) {
         //     if (!error && response.statusCode == 200) {
