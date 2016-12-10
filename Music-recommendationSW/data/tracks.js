@@ -58,6 +58,11 @@ let exportedMethods = {
             //     return this.getArtistById(newId);
             // });
         });
+    },
+    getTop10Tracks(){
+        return tracks().then((trackCollection)=>{
+            return trackCollection.find({popularity: {$gte: 75}}).limit(10).toArray();
+        });
     }
 
 }

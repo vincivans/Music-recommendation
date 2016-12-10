@@ -1,0 +1,49 @@
+<% include partials/header %>
+    <div class="ui stackable three column very relaxed grid container" style="position:relative">
+            <div class="column">
+
+              <div class="item">
+                    <div class="ui card">
+                        <a href="/track/<%= tracklist["id"]%>">
+                        </a>
+                        
+                      <div class="content">
+                        <a class="header" ref="/track/<%= tracklist["id"]%>"><%= tracklist["name"] %></a>
+                      </div>
+                        <div class="extra content">
+                            <div class="ui small basic icon buttons">
+                            <a class="ui button center" href="/track/<%= tracklist["id"] %>"><i class="unhide icon"></i></a>
+                          
+                              <button class="ui button"><i class="thumbs outline up icon"></i></button>
+                              <button class="ui button"><i class="thumbs outline down icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="item">
+                    <div class="ui card">
+                        <a href="/track/<%= artistlist["id"]%>">
+                        </a>
+                        
+                      <div class="content">
+                        <a class="header" ref="/track/<%= artistlist["id"]%>"><%= artistlist["name"] %></a>
+                      </div>
+                        <div class="extra content">
+                            <div class="ui small basic icon buttons">
+                            <a class="ui button center" href="/track/<%= artistlist["id"] %>"><i class="unhide icon"></i></a>
+                          
+                              <button class="ui button"><i class="thumbs outline up icon"></i></button>
+                              <button class="ui button"><i class="thumbs outline down icon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </div>
+<% include partials/footer %>

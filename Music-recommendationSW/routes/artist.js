@@ -4,7 +4,14 @@ const data = require('../data');
 const artistData = data.artists;
 const request  =require('request');
 const SpotifyWebApi = require('spotify-web-api-node');
+const passport = require('passport');
 
+ensureAuthenticated = (req, res, next) => {
+        if(req.isAuthenticated())
+            return next();
+        console.log("Not authenticate");
+        res.redirect('/login');
+}
 
 // credentials are optional 
 var spotifyApi = new SpotifyWebApi({
@@ -67,18 +74,9 @@ each artist example:
 
 
 
-router.get("/:id", (req, res) =>{
+router.get("/:id", (req, res) =>{//need to login
     let url = 'https://api.spotify.com/v1/artists/'+req.params.id;
-    spotifyApi.getArtist(req.params.id)
-      .then(function(data) {
-        //console.log('Artist information', data.body);
-        body = data.body
-        res.render('artist/single', { art: body });//art details as above
-      }, function(err) {
-        console.error(err);
-      });
-
-    /*
+    let url2 = 'https://api.spotify.com/v1/artists/'+req.params.id+'/related-artists';
 	request(url, function(error, response, body) {
             if(error) console.log(error);
             if (!error && response.statusCode == 200) {
@@ -86,7 +84,7 @@ router.get("/:id", (req, res) =>{
                 body = JSON.parse(body);
                 res.render('artist/single', { art: body });//art details as above
             }
-        })*/
+        })
 });
 
 module.exports = router;

@@ -3,6 +3,15 @@ const router = express.Router();
 const data = require('../data');
 const albumData = data.albums;
 const request = require('request');
+const passport = require('passport');
+
+ensureAuthenticated = (req, res, next) => {
+    if(req.isAuthenticated())
+      return next();
+    console.log("Not authenticate");
+    res.redirect('/login');
+}
+
 
 router.get("/", (req, res) => {   //limit albumList.length = 30
     albumData.getSeveralAlbums(30).then((albumList) => {
@@ -132,6 +141,10 @@ each album example:
 
 */
 
+
+
+
+//must login to get this route.
 router.get("/:id", (req, res) => {//id is the spotify api id 
     albumData.getAlbumById(req.params.id).then((album) => {
         res.render('album/singlealbum', { alb: album });     //details as above

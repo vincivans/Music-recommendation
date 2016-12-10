@@ -3,8 +3,13 @@ const router = express.Router();
 const data = require("../data");
 const trackData = data.tracks;
 const request = require('request');
-
 //This is a file used to be the "/songs" route
+
+
+// credentials are optional 
+
+
+
 
 
 /*
@@ -18,13 +23,21 @@ const request = require('request');
  *  DESTROY
  */
 
-//INDEX ROUTE
-router.get('/', (req, res) => {//limit the trackList.length = 10
-    trackData.getSeveralTracks(10).then((trackList) => {
-        res.render('index', { tracks: trackList })
+//INDEX ROUTE     //get the top 10 music, rolling album, 
+router.get('/', (req, res) => {
+    trackData.getTop10Tracks().then((trackList) => {
+        let rollAlbum = [];
+        let rollArtist = [];
+        let topTrack = trackList;
+
+        return Promise.all([trackList, trackList.forEach((ele)=>{
+                            rollAlbum.push(ele.album);
+                            rollArtist.push(ele.artists)})]).then((value)=>{
+        res.render('index', { tracks: topTrack, rartist: rollArtist, ralbum: rollAlbum});
     }).catch((err)=>{
         console.log(err);
     })
+  })
 });
 
 
@@ -142,14 +155,11 @@ each track example:
 
 
 
-
-
-
-
-//SHOW ROUTE
+//SHOW ROUTE     
 router.get("/:id", (req, res) => {
         //direct get the track information from the Internet
-        request('https://api.spotify.com/v1/tracks/${req.params.id}', function(error, response, body) {
+        url = 'https://api.spotify.com/v1/tracks/' + req.params.id;
+        request(url, function(error, response, body) {
             if (!error && response.statusCode == 200) {
         
                 body = JSON.parse(body);
@@ -161,8 +171,35 @@ router.get("/:id", (req, res) => {
 
 
 
+
+
+/////////////////
+//search route
+router.post('/search',function(req,res){
+    //After clicking submit the data in the form will be packaged and send in req.body;
+    var keyWord = req.sanitize(req.body.keyword);
+    //console.log(Song);
+    let url = 'https://api.spotify.com/v1/search?q='+keyWord+'&type=track,artist,album&limit=1';
+        request(url, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                body = JSON.parse(body);
+                res.render('searchresult', { tracklist: body.tracks, //an array of tracks
+                                             artistlist: body.artists,//a array of artist
+                                             albumlist: body.albums });//a array of album
+            }
+        })
+});
+
+
+
+
+
+
+
+
 //Binglin Xie ALL TRACK ROUTE      use: http://localhost:3000/track/songs
 router.get('/songs', (req, res) => {//limit the trackList.length = 10
+  console.log('whe');
     trackData.getSeveralTracks(10).then((trackList) => {
         res.render('track/index', { tracks: trackList })
     }).catch((err)=>{

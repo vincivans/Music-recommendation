@@ -2,6 +2,10 @@
   <h1>Artists</h1>
   <% artists.forEach(function(art){ %>  <!-- art is each singer in the artists array-->
       <h2><a href="/artist/<%= art["id"] %>"><%= art["name"] %></a></h2>
-      <p><%= art["images"][1]["url"] %></p>
+      <% if (art["images"].length) {%>
+          <img src=<%= art["images"][2]["url"] %> >
+      <% } else {%>
+          <img src=https://www.youmus.com/assets/images/default_avatar.jpg >
+  	  <%}%>
   <% }); %>
 </section>

@@ -34,5 +34,14 @@
 
             </div>
         <% }); %>
+
+        <% ralbum.forEach(function(ralb){ %>
+            <p><%= ralb["name"] %></p>
+        <% }); %>
+        <% rartist.forEach(function(rart){ %>
+            <% rart.forEach(function(a){ %>
+                  <p><%= a["name"] %></p>
+            <% }); %>
+        <% }); %>
     </div>
 <% include partials/footer %>

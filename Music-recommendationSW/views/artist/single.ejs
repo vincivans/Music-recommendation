@@ -1,7 +1,11 @@
 <article>
   <h1><%= art["name"] %></h1>
   <p>popularity:<a><%= art["popularity"] %></a></p>
-  <img src=<%= art["images"][2]["url"] %> >
+  <% if (art["images"].length) {%>
+          <img src=<%= art["images"][2]["url"] %> >
+      <% } else {%>
+          <img src=https://www.youmus.com/assets/images/default_avatar.jpg >
+  <%}%>
   <% if((art["genres"]).length) { %>
     <h3>Genres</h3>
     <ul>

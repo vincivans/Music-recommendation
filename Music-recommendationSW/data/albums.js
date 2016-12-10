@@ -4,7 +4,6 @@ const albums = mongoCollections.albums;
 let exportedMethods = {
     getAlbumById(id) {
         return albums().then((albumCollection) => {
-            //console.log("hahhaID");
             return albumCollection.findOne({
                 id: id
             }).then((album) => {
@@ -16,7 +15,6 @@ let exportedMethods = {
     },
     getAlbumByInsertId(id) {
         return albums().then((albumCollection) => {
-            //console.log("hahhaID");
             return albumCollection.findOne({
                 _id: id
             }).then((album) => {
@@ -40,7 +38,6 @@ let exportedMethods = {
     },
     addAlbum(data) {
         return albums().then((albumCollection) => {
-            //console.log("hahha");
 
             return albumCollection.insertOne(data).then((newInsertInformation) => {
                 return newInsertInformation.insertedId;
@@ -62,7 +59,7 @@ let exportedMethods = {
                 id: id
             }, {
                 $set: {
-                    tracks: tracks
+                    tracks: tracks 
                 }
             }).then(() => {
                 return this.getAlbumById(id);
