@@ -8,7 +8,7 @@ let exportedMethods = {
             return trackCollection.findOne({
                 id: id
             }).then((track) => {
-                if (!track) throw "Track not found";
+                if (!track) Promise.reject("Track not found");
 
                 return track;
             });
@@ -19,7 +19,7 @@ let exportedMethods = {
             return trackCollection.findOne({
                 _id: id
             }).then((track) => {
-                if (!track) throw "Track not found";
+                if (!track) Promise.reject("Track not found")
 
                 return track;
             });
@@ -41,10 +41,11 @@ let exportedMethods = {
         return tracks().then((trackCollection) => {
 
             return trackCollection.insertOne(data).then((newInsertInformation) => {
-                return newInsertInformation.insertedId;
-            }).then((newId) => {
-                return this.getTrackByInsertId(newId);
+                console.log("succeed insert tracks");
             });
+            //}).then((newId) => {
+              //  return this.getTrackByInsertId(newId);
+            //});
         });
     },
     addAllTracks(arr) {

@@ -149,31 +149,25 @@ each album example:
 
 //must login to get this route.
 router.get("/:id", (req, res) => {//id is the spotify api id 
-    albumData.getAlbumById(req.params.id).then((album) => {
-        //console.log(album.tracks.items[0]);
-        res.render('album/singlealbum', { album: album });     //details as above
+    let url = 'https://api.spotify.com/v1/albums/'+ req.params.id;
+        request(url, function(error, response, body) {
 
-        // request(`https://api.spotify.com/v1/albums/${album.id}`, function(error, response, body) {
-        //     if (!error && response.statusCode == 200) {
-        //         //console.log(typeof body)
-        //         body = JSON.parse(body);
-        //         res.render('albums/single', { album: body });
-        //         // console.log(body); // Show the HTML for the Google homepage.
-
-        //         // resolve(artists.addAllArtist(body.artists.items));
-        //         // .then((res) => {
-        //         //     resolve(res);
-        //         // })
-        //     }
-        // })
-
-
-        //res.render('albums/single', { album: album });
-    }).catch(() => {
-        res.status(404).json({
-            error: "album not found"
-        });
-    });
+            if (!error && response.statusCode == 200) {
+        
+                let album = JSON.parse(body);
+                if(album.tracks.items.length){
+                      album.tracks.items.forEach((ele)=>{
+                          let tInsert = ele;
+                            trackData.getTrackById(ele.id).then((trackTryInsert)=>{
+                              if(!trackTryInsert)
+                                    trackData.addTrack(ele);
+                            })
+                      })
+                }
+                      
+                res.render('album/singlealbum', { album: album });
+            }
+        })
 });
 
 
@@ -216,8 +210,8 @@ router.delete("/:id", (req, res) => {
   });
 });
 
-/*
-router.post("/like/:id", ensureAuthenticated, (req, res)=>{
+
+router.post("/like", ensureAuthenticated, (req, res)=>{
         let curUser = req.user.username;
         let url = 'https://api.spotify.com/v1/tracks/'+ req.params.id;
         request(url, function(error, response, body) {
@@ -232,5 +226,5 @@ router.post("/like/:id", ensureAuthenticated, (req, res)=>{
           console.log(error);
         })
         
-});*/
+});
 module.exports = router;

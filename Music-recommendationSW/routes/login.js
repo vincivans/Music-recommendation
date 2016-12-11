@@ -34,7 +34,7 @@ router.get("/signup",(req, res) => {
 
 //get the logined user private page
 router.get("/", ensureAuthenticated, (req, res, next) => {
-		res.redirect('/album');
+		res.redirect('/main');
 });
 
 //get the user private page
