@@ -10,6 +10,7 @@ ensureAuthenticated = (req, res, next) => {
         if(req.isAuthenticated())
             return next();
         console.log("Not authenticate");
+        req.flash('error', 'You have to login first!');
         res.redirect('/login');
 }
 
@@ -92,7 +93,6 @@ router.get("/:id", (req, res) =>{//need to login
                                 if (!error && response.statusCode == 200) {
                                     //body is a string
                                     body = JSON.parse(body);
-                                    console.log(relate.length);
                                     res.render('artist/single', { artist: body, relateartist : relate });//art details as above
                                 }
                             });

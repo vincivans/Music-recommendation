@@ -59,7 +59,9 @@ let exportedMethods = {
     },
     getTop10Tracks(){
         return tracks().then((trackCollection)=>{
-            return trackCollection.find({popularity: {$gte: 75}}).limit(10).toArray();
+            return trackCollection.find({popularity: {$sort: {popularity: -1},
+                                                      $slice: 10 }
+                                        }).limit(10).toArray();
         });
     }
 

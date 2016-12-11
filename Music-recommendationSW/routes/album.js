@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const albumData = data.albums;
+const userData = data.users;
+const trackData= data.tracks;
 const request = require('request');
 const passport = require('passport');
 
@@ -9,6 +11,7 @@ ensureAuthenticated = (req, res, next) => {
     if(req.isAuthenticated())
       return next();
     console.log("Not authenticate");
+    req.flash('error', 'You have to login first!');
     res.redirect('/login');
 }
 
@@ -147,6 +150,7 @@ each album example:
 //must login to get this route.
 router.get("/:id", (req, res) => {//id is the spotify api id 
     albumData.getAlbumById(req.params.id).then((album) => {
+        //console.log(album.tracks.items[0]);
         res.render('album/singlealbum', { album: album });     //details as above
 
         // request(`https://api.spotify.com/v1/albums/${album.id}`, function(error, response, body) {
@@ -171,4 +175,54 @@ router.get("/:id", (req, res) => {//id is the spotify api id
         });
     });
 });
+
+
+router.get("/:userName/:albumId",(req,res)=>{
+    let listenedTrack = req.body;
+    let recommend = [];
+    console.log(req.body);
+
+    userData.getUserByUserName(req.params.userName).then(()=>{
+          return userData.updateListenHistory(req.params.userName, req.body)
+                          .then((updateUser)=>{
+                              for(var i = 0; i < 5; ++i){
+                                let url = 'https://api.spotify.com/v1/albums/'+
+                                          updateUser.listenHistory[i].album.id;
+                                    request(url, function(error, response, body) {
+                                              if (!error && response.statusCode == 200) {
+                                          
+                                                  body = JSON.parse(body);
+                                                  recommend.push(body.tracks.items[3]);
+                                              }
+                                          })
+                              }
+                          }).then((recommendationData)=>{
+                            console.log(recommend);
+                            res.render('album/test', {recommend: recommend});
+                          })
+    })
+});
+
+
+router.delete("/:id", (req, res) => {
+  commentData.getCommentByCommentId(req.params.id).then(() => {
+    return commentData.removeFavorite(req.params.id).then(() => {
+      res.sendStatus(200);
+    }).catch(() => {
+      res.sendStatus(500);
+    });
+  }).catch(() => {
+    res.status(404).json({error: "Comment not found!"});
+  });
+});
+
+/*
+router.post("/like", ensureAuthenticated, (req, res)=>{
+        let curUser = req.user.username;
+
+        user.getUserByUserName(curUser).then(()=>{
+
+        })
+        
+});*/
 module.exports = router;

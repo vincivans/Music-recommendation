@@ -73,6 +73,52 @@ let exportMethods = {
 		});
 	},
 
+	updateListenHistory(userName, track){
+		if(!userId)
+			return Promise.reject("Please log in first");
+
+		return users().then((userCollection)=>{
+			return userCollection.updateOne({username: userName}, {$push:{"listenHistory":track, 
+																	$slice: 5}})
+				   .then((updateInformation)=>{
+				   		console.log("Add recent listened music");
+				   		return this.getUserByUserName(userName);
+				   })
+		})
+	},
+
+	updateFavorite(userName, track){
+		if(!userId)
+			return Promise.reject("Please log in first");
+
+		return users().then((userCollection)=>{
+			return userCollection.updateOne({username: userName}, {$push:{"favoriteSong":track}})
+				   .then((updateInformation)=>{
+				   		console.log("Add favorite success");
+				   		return this.getUserByUserName(userName);
+				   })
+		})
+	},
+
+	removeFavorite(id){
+		if(!id)
+			Promise.reject("Please provide a valid commentId to delete.");
+		
+		return users().then((userCollection) => {
+            return userCollection.update({}, {
+                $pull: {
+                    "favoriteSong": {
+                        id: id
+                    }
+                }
+            }).then((deletionInfo) => {
+                if (deletionInfo.deletedCount === 0) {
+                    throw (`Could not delete favorite song with name of ${track.name}`);
+                }
+            });
+        });
+    },
+
 	getAll(){
 		return users().then((userlist)=>{
 			return userlist.find().toArray();

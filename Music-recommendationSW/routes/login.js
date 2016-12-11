@@ -5,10 +5,11 @@ const userData = data.users;
 const passport = require('passport');
 
 ensureAuthenticated = (req, res, next) => {
-		if(req.isAuthenticated())
-			return next();
-		console.log("Not authenticate");
-		res.redirect('/login');
+    if(req.isAuthenticated())
+      return next();
+    console.log("Not authenticate");
+    req.flash('error', 'You have to login first!');
+    res.redirect('/login');
 }
 
 
@@ -33,7 +34,7 @@ router.get("/signup",(req, res) => {
 
 //get the logined user private page
 router.get("/", ensureAuthenticated, (req, res, next) => {
-		res.redirect('/songs');
+		res.redirect('/album');
 });
 
 //get the user private page
