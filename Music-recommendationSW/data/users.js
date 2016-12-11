@@ -88,7 +88,7 @@ let exportMethods = {
 	},
 
 	updateFavorite(userName, track){
-		if(!userId)
+		if(!userName)
 			return Promise.reject("Please log in first");
 
 		return users().then((userCollection)=>{

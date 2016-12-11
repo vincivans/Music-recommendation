@@ -1,0 +1,10 @@
+<% include ../partials/header %>
+<section>
+  <h1>Artists</h1>
+  <% artists.forEach(function(art){ %>  <!-- art is each singer in the artists array-->
+      <h2><a href="/artists/<%= art["id"] %>"><%= art["name"] %></a></h2>
+      <p><%=art["images"][1]["url"] %></p> 
+  <% }); %>
+</section>
+
+<% include ../partials/footer %>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/single-artist-albums.css">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.js"></script>
+    <title>Online Music recommendation APP</title>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="ui container">
+        <div class="ui large inverted fixed  menu">
+            <a href="/album" class="active item">
+                <i class="icon home"></i>
+            </a>
+            <div class="right item">
+            <a class="ui inverted basic button" href="/login">Log in</a>
+            <a class="ui inverted basic button" href="/signup">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    <div class="top-gutter"></div> <!-- used to create gutter from top -->
+    
+    
+    <div class="ui container">
+
+      <div class="ui segments">
+        <!-- 1st segment -->
+        <div class="ui inverted raised segment banner-bg">
+            <div class="ui container">
+              <div class="ui relaxed divided items">
+                <div class="item">
+                  <div class="ui small circular image art-avatar">
+                    <img src="<%= artist["images"][0]["url"] %>" alt="">
+                  </div>
+                  <div class="content art-intro">
+                    <a class="header" id="art-name" data-id="<%=artist["id"]%>"><%= artist["name"] %></a>
+                    <div class="meta">
+                      
+                    </div>
+                    <div class="description">
+                      <!-- nothing here -->
+                    </div>
+                    <div class="extra">
+                      <div class="ui right floated basic inverted button">
+                        popularity:<a><%= artist["popularity"] %></a>
+                      </div>
+                      <div class="ui label">Limited</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+        </div>
+        <!-- 1st segment end-->
+
+        <!-- 2st segment -->
+        <div class="ui yellow stacked inverted segment" id="genres">
+            <h5 class="ui inverted header ">Genres: </h5>
+              <% if((artist["genres"]).length) { %>
+              <% (artist["genres"]).forEach(function(singleGenres){ %>
+              <div class="ui yellow basic mini button"><%= singleGenres %></div>
+              <% }); %>
+              <% } %>
+        </div>
+
+        <div class="ui inverted segment third-seg"> <!-- 3rd segment-->
+
+          <div class="ui top attached tabular inverted menu third-seg-sub">
+            <a class="item active art-tab" data-tab="albums">Albums</a>
+            <a class="item art-tab" data-tab="related">Related artist</a>
+          </div>
+          
+          <div class="ui bottom attached tab segment active inverted third-seg-sub" data-tab="albums">
+            
+            <div class="ui divided items template-wrapper">    <!--related -->
+             
+            </div>        <!--related end-->
+            
+          </div>
+
+          <div class="ui bottom attached tab inverted segment third-seg-sub" data-tab="related">
+            
+            <div class="ui six column grid">
+              <% (relateartist).forEach(function(singleArtist){ %>
+              <div class="column">
+                <div class="ui fluid card">
+                  <div class="image">
+                    <% if(singleArtist["images"].length){ %>
+                      <img src="<%= singleArtist["images"][1]["url"] %>">
+                    <% } else {%>
+                      <img src="../source/placeholder.png">
+                    <% } %>
+                  </div>
+                  <div class="content">
+                    <a class="header" href="/artist/<%=singleArtist["id"] %>"><%=singleArtist["name"] %></a>
+                  </div>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+
+          </div>
+
+        </div><!--3rd segment end -->
+
+      </div>
+
+        
+
+    </div>
+
+
+  
+
+<script src='/js/single-artist-albums.js'></script>
+<% include ../partials/footer %>

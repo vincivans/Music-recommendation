@@ -217,11 +217,19 @@ router.delete("/:id", (req, res) => {
 });
 
 /*
-router.post("/like", ensureAuthenticated, (req, res)=>{
+router.post("/like/:id", ensureAuthenticated, (req, res)=>{
         let curUser = req.user.username;
-
-        user.getUserByUserName(curUser).then(()=>{
-
+        let url = 'https://api.spotify.com/v1/tracks/'+ req.params.id;
+        request(url, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                let likeTrack= JSON.parse(body);
+                return likeTrack;
+            }
+        }).then(()=>{
+              user.updateListenHistory(curUser, likeTrack).then((userUpdate)=>{
+                console.log(userUpdate);
+        }).catch((error)=>{
+          console.log(error);
         })
         
 });*/

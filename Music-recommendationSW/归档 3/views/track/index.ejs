@@ -1,0 +1,12 @@
+<%include ../partials/header %>
+
+<section>
+  <h1>Tracks</h1>
+  <h1>This is top ten</h1>
+  <% tracks.forEach(function(tra){ %>   
+    <article>
+      <h2><a href="/track/<%= tra["id"] %>"><%= tra["name"] %></a></h2>
+    </article>
+   <% }); %>
+</section>
+<%include ../partials/footer %>

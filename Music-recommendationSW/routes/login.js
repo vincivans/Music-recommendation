@@ -21,7 +21,7 @@ passport.deserializeUser(function(user, done) {
 	    done(null, user);
 });
 
-//get login page(main page)
+//get login page
 router.get("/login",(req, res) => {
 		res.render('login', { message: req.flash('error') });
 	});
@@ -50,13 +50,13 @@ router.get("/signout", (req, res)=>{
 
 
 //handle login post
-router.post('/login', passport.authenticate('local-login', { successRedirect: '/songs',
+router.post('/login', passport.authenticate('local-login', { successRedirect: '/main',
 														   failureRedirect: '/login',
 														   failureFlash: true }));
 
 
 //handle registration post
-router.post('/signup', passport.authenticate('local-signup', { successRedirect: '/songs',
+router.post('/signup', passport.authenticate('local-signup', { successRedirect: '/main',
 														   failureRedirect: '/signup',
 														   failureFlash: true }));
 
