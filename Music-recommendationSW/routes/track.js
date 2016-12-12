@@ -31,8 +31,8 @@ router.get('/', (req, res) => {
         let topTrack = trackList;//note here may result in collision with the search's "traclist"
                                  //if any mistakes, rename the parameter
         return Promise.all([trackList, trackList.forEach((ele)=>{
-                            rAlbum.push(ele.album);
-                            rArtist.push(ele.artists)})]).then((value)=>{
+                                rAlbum.push(ele.album);
+                                rArtist.push(ele.artists)})]).then((value)=>{
         res.render('index', { tracks: topTrack, rollartist: rArtist, rollalbum: rAlbum});
                               /*tracks is an array of that contains 10 songs
                                 rollArtist is generated through toptrack, is a two dimentional

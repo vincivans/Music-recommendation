@@ -1,7 +1,6 @@
 const mongoCollections = require("../config/mongoCollections");
 const users = mongoCollections.users;
 const bcrypt = require("bcrypt-nodejs");
-const uuid = require("node-uuid");
 
 let exportMethods = {
 	addUser(username, password){
@@ -74,14 +73,13 @@ let exportMethods = {
 	},
 
 	updateListenHistory(userName, track){
-		if(!userId)
+		if(!userName)
 			return Promise.reject("Please log in first");
 
 		return users().then((userCollection)=>{
-			return userCollection.updateOne({username: userName}, {$push:{"listenHistory":track, 
-																	$slice: 5}})
+			return userCollection.updateOne({username: userName}, {$push:{"listenHistory":track }})
 				   .then((updateInformation)=>{
-				   		console.log("Add recent listened music");
+				   		//console.log("Add recent listened music");
 				   		return this.getUserByUserName(userName);
 				   })
 		})
@@ -94,21 +92,21 @@ let exportMethods = {
 		return users().then((userCollection)=>{
 			return userCollection.updateOne({username: userName}, {$push:{"favoriteSong":track}})
 				   .then((updateInformation)=>{
-				   		console.log("Add favorite success");
+				   		//console.log("Add favorite success");
 				   		return this.getUserByUserName(userName);
 				   })
 		})
 	},
 
-	removeFavorite(id){
-		if(!id)
-			Promise.reject("Please provide a valid commentId to delete.");
+	removeFavorite(userName, track){
+		if(!track)
+			Promise.reject("Please provide a valid track to delete.");
 		
 		return users().then((userCollection) => {
-            return userCollection.update({}, {
+            return userCollection.update({username: userName}, {
                 $pull: {
                     "favoriteSong": {
-                        id: id
+                        "track.id": track.id
                     }
                 }
             }).then((deletionInfo) => {

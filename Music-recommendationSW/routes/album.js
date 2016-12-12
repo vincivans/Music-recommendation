@@ -164,7 +164,7 @@ router.get("/:id", (req, res) => {//id is the spotify api id
                             })
                       })
                 }
-                      
+                   //Note the render webpage   
                 res.render('album/singlealbum', { album: album });
             }
         })
@@ -197,34 +197,40 @@ router.get("/:userName/:albumId",(req,res)=>{
     })
 });
 
-
-router.delete("/:id", (req, res) => {
-  commentData.getCommentByCommentId(req.params.id).then(() => {
-    return commentData.removeFavorite(req.params.id).then(() => {
-      res.sendStatus(200);
-    }).catch(() => {
-      res.sendStatus(500);
-    });
-  }).catch(() => {
-    res.status(404).json({error: "Comment not found!"});
-  });
+/*
+router.delete("/dislike", ensureAuthenticated,(req, res) => {
+      let curUser = req.user.username;
+      let dislikeTrack = req.body;
+      userData.removeFavorite(curUser, dislikeTrack).then(() => {
+          console.log("delete succeed");
+        }).catch(() => {
+          res.sendStatus(500);
+        });
 });
 
 
-router.post("/like", ensureAuthenticated, (req, res)=>{
+//Route for add user listened tracks to recent listen history
+router.post("/listened", ensureAuthenticated, (req, res)=>{
         let curUser = req.user.username;
-        let url = 'https://api.spotify.com/v1/tracks/'+ req.params.id;
-        request(url, function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                let likeTrack= JSON.parse(body);
-                return likeTrack;
-            }
-        }).then(()=>{
-              user.updateListenHistory(curUser, likeTrack).then((userUpdate)=>{
+        let listenedTrack = req.body;
+        console.log(req.body);
+              userData.updateListenHistory(curUser, listenedTrack).then((userUpdate)=>{
                 console.log(userUpdate);
         }).catch((error)=>{
           console.log(error);
-        })
+        });
         
 });
+
+//Route for add user's favorite tracks
+router.post("/like", ensureAuthenticated, (req, res)=>{
+        let curUser = req.user.username;
+        let likeTrack = req.body;
+              userData.updateFavorite(curUser, likeTrack).then((userUpdate)=>{
+                console.log(userUpdate);
+        }).catch((error)=>{
+          console.log(error);
+        });
+        
+});*/
 module.exports = router;

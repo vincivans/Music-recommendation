@@ -38,7 +38,7 @@ a.active.teal.item {
 }
 
 .bg {
-    background-image: url('../source/bg.jpg');
+    background-image: url('../source/main-bg.png');
     background-position: center;
     background-size: cover;
     position: fixed;

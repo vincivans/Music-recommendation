@@ -39,14 +39,9 @@
             $.ajax(getRequestConfig).then(function (res) {
                 let player = $(res);
                 $(This).closest('.item').append(player);
+
             });
 
-            //post
-            //let postRequestConfig= {
-            //    method: "POST",
-            //    body: 
-            //    url: "/album/like/" + 
-            //}
 
 
 
