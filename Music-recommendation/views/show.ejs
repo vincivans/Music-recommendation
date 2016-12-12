@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/single-album.css">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.js"></script>
+    <title>Online Music recommendation APP</title>
+</head>
+<body>
+    <div class="bgp"></div>
+    <div class="ui container">
+        <div class="ui large inverted fixed  menu">
+            <a href="/main" class="active item">
+                <i class="icon home"></i>
+            </a>
+            <a class="item" href="/album">
+                Albums
+            </a>
+            <div class="right item" id="loginbtn">
+                <a href="/login" class="ui inverted button">Log in</a>
+            </div>
+
+            <a href="/private" class="active item"><i class="icon user"></i></a>
+        </div>
+    </div>
+    <div class="top-gutter"> </div> <!-- used to create gutter from top -->
+    <div class="ui container seg-wrapper">
+      <div class="ui stackable grid single-album-info" style="margin-top:3em">
+          <div class="four wide column">
+            <div class="ui fluid grid">
+              <div class="column">
+                  
+
+            </div>
+          </div>
+
+          <div class="twelve wide column">
+            <div class="grid">
+              <div class="column">
+                <h3 class="ui top attached inverted header">Recently Listened</h3>
+                <div class="ui inverted  attached  segment playlist">
+                  <div class="ui inverted relaxed divided list">
+                    <% if (listened.length) { %>
+                      <% listened.forEach(function(track){ %> 
+                        <div class="item">
+                          <div class="content play-list-line">
+                            <div class="header left floated"><%= track["name"] %></div>
+                            <a href="#"><i data-id="<%= track["id"]%>" class="right floated icon play track-name"></i></a>
+                          </div>
+                        </div>
+                      <% }); %>
+                    <% } %>
+                  </div>
+                
+                
+                
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+      
+      </div>
+
+
+
+          <div class="twelve wide column">
+            <div class="grid">
+              <div class="column">
+                <h3 class="ui top attached  teal header inverted">Favorite Music list</h3>
+                <div class="ui inverted  attached segment playlist">
+                  <div class="ui inverted relaxed divided list">
+                    <% if (favorite.length) { %>
+                      <% favorite.forEach(function(track){ %> 
+                        <div class="item">
+                          <div class="content play-list-line">
+                            <div class="header left floated"><%= track["name"] %></div>
+                            <a href="#"><i data-id="<%= track["id"]%>" class="right floated icon play track-name"></i></a>
+                          </div>
+                        </div>
+                      <% }); %>
+                    <% } %>
+                  </div>
+                
+                
+                
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+      
+      </div>
+
+      
+    
+<script src="/js/single-album.js"></script>
+<script src="/js/loginCheck.js"></script>
+</body>
+</html>

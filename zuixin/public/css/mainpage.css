@@ -1,0 +1,75 @@
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+
+.top-gutter{
+    margin-bottom: 0 !important;
+}
+
+#main-banner{
+    text-align: center;
+    min-height: 650px;
+    padding: 1em 0em;
+    background-image: url("../source/main-banner.jpg")!important;
+    background-size: cover!important;
+    background-position: center!important;
+
+}
+
+
+#main-stage{
+    position: relative;
+}
+
+.down-page{
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.2s;
+}
+
+.down-page:hover{
+    color: rgb(156, 204, 101);
+}
+
+.topten{
+    overflow: scroll;
+    background: rgb(0,0,0,1)!important;
+}
+
+.ui.label{
+    background: #B3E5FC !important;
+}
+
+.ui.segment.topten{
+    background: #FFF3E0 !important;
+}
+@media (max-width: 763px) {
+  #main-stage .header{
+      font-size: 3em!important;
+      margin-top: 3em;
+  }
+  #main-stage h2{
+      font-size: 1.2em!important;
+  }
+  #main-banner{
+      min-height: 400px;
+  }
+}
+
+@media (max-width: 667px) {
+  #main-stage .header{
+      font-size: 2em!important;
+      margin-top: 3em;
+  }
+  #main-stage h2{
+      font-size: 0.8em!important;
+  }
+  #main-banner{
+      min-height: 300px;
+  }
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Online Music recommendation APP</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="fullscreen-bg">
+            <video autoplay loop class="fillWidth">
+                <source src="/source/fullpage.mp4" type="video/mp4" />
+            </video>
+            <div class="overlay">
+                <div class="login-wrapper">
+                    <h3 class="ui inverted center aligned header">
+                      <!--<img src="assets/images/logo.png" class="image">-->
+                        Get your account, go ahead.
+                    </h3>
+                    <form class="ui form" action="/signup" method="POST">
+                        <div class="fileds">
+                            <div class="field">
+                                <input type="text" name="username" placeholder="Username">
+                            </div>
+                            <div class="field">
+                                <input type="password" name="password" placeholder="Password">
+                            </div>
+                             <div class="field">
+                                <input type="password" name="confirmPassword" placeholder="Confirm Password">
+                            </div>
+                                    <% if(message.length > 0) { %>
+                                        <div class="ui negative message">
+                                          <i class="close icon"></i>
+                                          <div class="header"><%=message%> </div>
+                                        </div>
+                                    <%}%>
+                            <div class="ui two column grid container" id="signup">
+                                <div class="eight wide colum">
+                                    <button class="ui large button positive" type="submit">Submit</button>
+                                </div>
+                                <div class="eight wide colum">
+                                    <a class="ui large button negative" href="/">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+<% include partials/footer %>
