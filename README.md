@@ -1,6 +1,7 @@
 # Music-recommendation
 CS546 final project
 This is a project for our CS546 Web application, pull the request if you need.
+
 Team Winnebago, Alaska
 
 
@@ -17,7 +18,7 @@ Team Winnebago, Alaska
 │ ├── [public] Artist details (all albums artist have, tracks)
 │ ├── [public] Recommend artists who relate to the artist you are looking for
 │ └── [public] footer
-├
+│
 │ 
 ├─┬ Album profile	
 │ ├── [public] header (login/signup/logout, user profile, search bar)
@@ -37,13 +38,13 @@ Team Winnebago, Alaska
 │ └── [public] footer
 │
 └─┬ user profile
-├─┬ login
-│ ├── [private] header (login/signup/logout, user profile, search bar)
-│ ├── [private] favorite music
-│ ├── [private] recent listened music
-│ └── [private] footer
-└─┬ not login
-└── [public] redirect to login page
+  ├─┬ login
+  │ ├── [private] header (login/signup/logout, user profile, search bar)
+  │ ├── [private] favorite music
+  │ ├── [private] recent listened music
+  │ └── [private] footer
+  └─┬ not login
+    └── [public] redirect to login page
 
 
 
