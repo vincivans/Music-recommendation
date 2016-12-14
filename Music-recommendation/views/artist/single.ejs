@@ -37,7 +37,9 @@
               <div class="ui relaxed divided items">
                 <div class="item">
                   <div class="ui small circular image art-avatar">
-                    <img src="<%= artist["images"][0]["url"] %>" alt="">
+                    <% if(artist["images"].length){ %>
+                      <img src="<%= artist["images"][0]["url"] %>" alt="">
+                    <%} %>
                   </div>
                   <div class="content art-intro">
                     <a class="header" id="art-name" data-id="<%=artist["id"]%>"><%= artist["name"] %></a>
