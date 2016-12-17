@@ -1,9 +1,0 @@
-Read me:
-
-This is a website application that allow users to login into the system to listen to music and it would recommend user related artists he may like. Logged Users can view different albums/artists from the database and listen to a preview music from the website.
-
-
-To use this application, just run the following code in the shell:
-
-$npm start
-
